@@ -1,0 +1,30 @@
+This is my drf project and all things what you want in there:
+1. configapp/views/Login_View.py
+2. configapp/models/auth_user.py
+3. I didn't understend exactly but maybe you will find that thing in this project. 
+
+That things that I had to change color:
+Про аутентификацию:
+Перевести пользовательский пароль для хранения в БД поможет библиотека
+bcrypt.
+Для создания токена из id пользователя поможет библиотека jwt.
+Можно определять пользователя из header Authorization : Bearer {user_token},
+либо после логина создавать сессию (доп таблица sessions, и в response
+устанавливать пользователю Cookie с sessionid, expire_at …
+В request сразу присваивать request.user перед обработкой запроса в
+кастомном Middleware в Django.
+Про авторизацию:
+Можно создать таблицы:
+roles для описания пользовательских ролей в проекте (админ, менеджер,
+пользователь, гость);
+business_elements для описания объектов приложения к которым будет
+осуществляться доступ (пользователи, товары, магазины, заказы, сами правила
+доступа);
+access_roles_rules для хранения правил доступа определенной роли к
+определенному блоку приложения (столбцы role_id, element_id,
+read_permission, read_all_permission, create_permission,update_permission,
+update_all_permission, delete_permission, delete_all_permission).
+Все столбцы, оканчивающиеся на _permission, имеют тип bool и отражают, что
+пользователь может делать с объектами — со всеми объктами, или может
+что-то делать с объектами, которые создавал сам (предполагается в табличках
+были бы поля owner (ссылка на user.id)
